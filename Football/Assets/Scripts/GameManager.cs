@@ -8,18 +8,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private const float Y = -0.75f;
+    [SerializeField] List<EnemyController> _enemies;
 
 
-    [SerializeField] List<EnemyController> enemies;
+    private GameObject _titleScreen;
+    public GameObject _gameBallPrefab;
+    Vector3 _playerPosAtSpawn = new Vector3(0, Y, -3);
+    Vector3 _ballPosAtSpawn = new Vector3(0, Y, 1);
 
-
-
-    private GameObject titleScreen;
-    public GameObject gameBallPrefab;
-    Vector3 playerPosAtSpawn = new Vector3(0, Y, -3);
-    Vector3 ballPosAtSpawn = new Vector3(0, Y, 1);
-
-    private int obstacleCount = 6;
+    private int obstacleCount = 3;
 
     private int goals;
     public bool gameActive;
@@ -30,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        titleScreen = GameObject.Find("Title Screen");
+        _titleScreen = GameObject.Find("Title Screen");
     }
 
     // Update is called once per frame
@@ -39,10 +36,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    private void SetEnemySpeed()
+    private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("Boundary"))
+        {
+            Destroy(_gameBallPrefab.gameObject);
+            Respawn();
+        }
     }
 
     //Generate a random spawn position for obstacles & enemies
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < obstacleCount; i++)
         {
-            Instantiate(enemies[0], GenerateSpawnPos(), transform.rotation);
+            Instantiate(_enemies[0], GenerateSpawnPos(), transform.rotation);
         }
     }
 
@@ -70,10 +70,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Instantiate(enemies[enemiesToSpawn], GenerateSpawnPos(), enemies[enemiesToSpawn].transform.rotation);
+            Instantiate(_enemies[enemiesToSpawn], GenerateSpawnPos(), _enemies[enemiesToSpawn].transform.rotation);
 
             //Set a random moving speed for each enemy spawned
-            enemies[enemiesToSpawn].speed = Random.Range(5, 20);
+            _enemies[enemiesToSpawn].speed = Random.Range(5, 20);
         }
     }
 
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
     //Respawn player after score
     public void Respawn()
     {
-        transform.position = playerPosAtSpawn;
-        Instantiate(gameBallPrefab, ballPosAtSpawn, transform.rotation);
+        transform.position = _playerPosAtSpawn;
+        Instantiate(_gameBallPrefab, _ballPosAtSpawn, transform.rotation);
     }
 
     //Called after difficulty selection
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         gameActive = true;
 
         //Spawn game ball
-        Instantiate(gameBallPrefab, ballPosAtSpawn, transform.rotation);
+        Instantiate(_gameBallPrefab, _ballPosAtSpawn, transform.rotation);
 
         if (difficulty == 0)
         {
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Hide title screen after start
-        titleScreen.gameObject.SetActive(false);
+        _titleScreen.gameObject.SetActive(false);
         //Display the exit button and the goal counter
         exitButton.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(true);
