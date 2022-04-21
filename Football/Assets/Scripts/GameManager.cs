@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private const float Y = -0.75f;
-    [SerializeField] List<EnemyController> _enemies;
+    [SerializeField] List<SteeringAgent> _enemies;
 
 
-    private GameObject _titleScreen;
+    public GameObject _titleScreen;
     public GameObject _gameBallPrefab;
     Vector3 _playerPosAtSpawn = new Vector3(0, Y, -3);
     Vector3 _ballPosAtSpawn = new Vector3(0, Y, 1);
@@ -23,18 +23,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Button exitButton;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _titleScreen = GameObject.Find("Title Screen");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,15 +44,6 @@ public class GameManager : MonoBehaviour
         return randomPos;
     }
 
-    //Spawn obstacles
-    private void SpawnObstacles()
-    {
-        for (int i = 0; i < obstacleCount; i++)
-        {
-            Instantiate(_enemies[0], GenerateSpawnPos(), transform.rotation);
-        }
-    }
-
     //Spawn enemies
     private void SpawnEnemyWave(int enemiesToSpawn)
     {
@@ -73,7 +52,8 @@ public class GameManager : MonoBehaviour
             Instantiate(_enemies[enemiesToSpawn], GenerateSpawnPos(), _enemies[enemiesToSpawn].transform.rotation);
 
             //Set a random moving speed for each enemy spawned
-            _enemies[enemiesToSpawn].speed = Random.Range(5, 20);
+            _enemies[enemiesToSpawn].minSpeed = Random.Range(1, 10);
+            _enemies[enemiesToSpawn].maxSpeed = Random.Range(11, 20);
         }
     }
 
@@ -108,14 +88,8 @@ public class GameManager : MonoBehaviour
         //Spawn game ball
         Instantiate(_gameBallPrefab, _ballPosAtSpawn, transform.rotation);
 
-        if (difficulty == 0)
-        {
-            SpawnObstacles();
-        }
-        else
-        {
-            SpawnEnemyWave(difficulty);
-        }
+      
+        SpawnEnemyWave(difficulty);
 
         //Hide title screen after start
         _titleScreen.gameObject.SetActive(false);

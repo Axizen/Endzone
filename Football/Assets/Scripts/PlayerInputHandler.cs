@@ -36,7 +36,12 @@ public class PlayerInputHandler : MonoBehaviour
         playerInputControls.Player.Disable();
     }
 
-       
+    private void Update()
+    {
+        Debug.Log(moveForward);
+        Debug.Log(moveRight);
+    }
+
     //Reset player rotation if toppled
     private void ResetRotation()
     {
