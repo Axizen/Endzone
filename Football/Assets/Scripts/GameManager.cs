@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject _titleScreen;
     public GameObject _gameBallPrefab;
     Vector3 _playerPosAtSpawn = new Vector3(0, Y, -3);
-    Vector3 _ballPosAtSpawn = new Vector3(0, Y, 1);
+    Vector3 _ballPosAtSpawn = new Vector3(20 , Y, 10);
 
     private int obstacleCount = 3;
 
@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
         exitButton.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
     }
+
+    private void PauseApplication()
+    {
+        //gameManager.TogglePaused();
+    }
+
+    private void QuitApplication() { Application.Quit(); }
 
     //Respawn player after score
     public void Respawn()

@@ -114,7 +114,7 @@
 -define:ENABLE_TERRAIN
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
--define:ENABLE_INPUT_SYSTEM
+-define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.0f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
@@ -401,7 +401,6 @@
 -r:"V:/Users/Nick/Documents/GitHub/Endzone/Football/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
 -r:"V:/Users/Nick/Documents/GitHub/Endzone/Football/Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.EditorCoroutines.Editor.ref.dll"
--r:"Library/Bee/artifacts/1900b0aE.dag/Unity.InputSystem.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Performance.Profile-Analyzer.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.PlasticSCM.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Rider.Editor.ref.dll"
@@ -436,15 +435,15 @@
 "Assets/Scripts/AI/IAgent.cs"
 "Assets/Scripts/AI/IWorldContextInfoProvider.cs"
 "Assets/Scripts/AI/Modules/MovementModule.cs"
+"Assets/Scripts/AI/Modules/SimpleInputMovementModule.cs"
 "Assets/Scripts/AI/Modules/SteeringMovementModule.cs"
 "Assets/Scripts/AI/SteeringAgent.cs"
 "Assets/Scripts/AI/SteeringBehaviorId.cs"
 "Assets/Scripts/Difficulty.cs"
 "Assets/Scripts/FollowPlayer.cs"
+"Assets/Scripts/FootBallWorld.cs"
 "Assets/Scripts/GameManager.cs"
-"Assets/Scripts/Input/Football.cs"
 "Assets/Scripts/Player.cs"
-"Assets/Scripts/PlayerInputHandler.cs"
 "Assets/Scripts/Sensor.cs"
 "Assets/Scripts/UI/AudioInitalizer.cs"
 "Assets/Scripts/UI/SettingsMenu/AudioOptions.cs"

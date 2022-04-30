@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 5258224032849146068}
   - component: {fileID: 9101033357055167512}
   - component: {fileID: 9187777756799231876}
-  - component: {fileID: 5329429752978343157}
   - component: {fileID: 516450630812544617}
   m_Layer: 0
   m_Name: EnemyOne
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,22 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5329429752978343157
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327816183749275964}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &516450630812544617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e0b2e117e95714588fe7364a3c3786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  minSpeed: 1
+  maxSpeed: 15
+  minSpeed: 6
   maxForce: 15
   mass: 1
   radius: 1
