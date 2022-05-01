@@ -18,7 +18,7 @@ public class SimpleGrab : MonoBehaviour
     private void Update()
     {
         // Execute logic only on button pressed
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Grab"))
         {
             // Check if player picked some item already
             if (pickedItem)
@@ -30,7 +30,7 @@ public class SimpleGrab : MonoBehaviour
             {
                 // If no, try to pick item in front of the player
 
-                Vector3 fwd = _player.transform.TransformDirection(Vector3.right);
+                Vector3 fwd = _player.transform.TransformDirection(Vector3.forward);
                 Debug.DrawRay(_player.transform.position, fwd * 30, Color.blue);
                   
                 RaycastHit hit;
