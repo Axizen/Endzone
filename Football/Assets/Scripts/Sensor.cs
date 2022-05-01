@@ -21,7 +21,7 @@ public class Sensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ball"))
+        if (other.gameObject.name == "Ball")
         {
             Instantiate(explosionParticle, other.transform.position, explosionParticle.transform.rotation);
             explosionParticle.Play();

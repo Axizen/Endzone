@@ -5,14 +5,18 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IWorldContextInfoProvider
 {
-    private const float Y = -0.75f;
-    [SerializeField] List<SteeringAgent> _enemies;
+    private IAgent[] obstacles;
+    [SerializeField] private SteeringAgent[] npcs;
+    private Agent player;
+    private AgentsGroup npcGroup;
 
+    private const float Y = -0.75f;
+    [SerializeField] private PickableItem _ball;
 
     public GameObject _titleScreen;
-    public GameObject _gameBallPrefab;
+
     Vector3 _playerPosAtSpawn = new Vector3(0, Y, -3);
     Vector3 _ballPosAtSpawn = new Vector3(20 , Y, 10);
 
@@ -24,11 +28,87 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Button exitButton;
 
+    void Start()
+    {
+        retrieveWorldInfo();
+        createTestGroup();
+    }
+
+    private void retrieveWorldInfo()
+    {
+        var playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerGameObject)
+        {
+            player = playerGameObject.GetComponent<Agent>();
+            player.initialise(this);
+        }
+
+        var obstacleGameObjects = GameObject.FindGameObjectsWithTag("Obstacle");
+        obstacles = new IAgent[obstacleGameObjects.Length];
+        for (var i = 0; i < obstacles.Length; i++)
+        {
+            var obs = obstacleGameObjects[i].GetComponent<IAgent>();
+            obs.initialise(this);
+            obstacles[i] = obs;
+        }
+
+        var nonPlayingCharacters = GameObject.FindGameObjectsWithTag("NPC");
+        npcs = new SteeringAgent[nonPlayingCharacters.Length];
+        for (var i = 0; i < npcs.Length; i++)
+        {
+            var npc = nonPlayingCharacters[i].GetComponent<SteeringAgent>();
+            npc.initialise(this);
+            npc.target = player;
+
+            npcs[i] = npc;
+        }
+
+    }
+
+    private void createTestGroup()
+    {
+        npcGroup = new AgentsGroup();
+        if (npcs.Length > 0)
+        {
+            var leader = npcs[0];
+            npcGroup.setLeader(leader);
+
+            npcGroup.addMembers(npcs);
+        }
+    }
+
+    void Update()
+    {
+        float dt = Time.deltaTime;
+
+        player.update(dt);
+
+        foreach (var n in npcs)
+        {
+            n.update(dt);
+        }
+    }
+
+    public IAgent[] getObstaclesForSector(Vector3 agentPosition)
+    {
+        return obstacles;
+    }
+
+    public IAgent getPlayerAgent()
+    {
+        return player;
+    }
+
+    public IAgent[] getNonPlayingAgents()
+    {
+        return npcs;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Boundary"))
         {
-            Destroy(_gameBallPrefab.gameObject);
+            Destroy(_ball.gameObject);
             Respawn();
         }
     }
@@ -49,11 +129,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Instantiate(_enemies[enemiesToSpawn], GenerateSpawnPos(), _enemies[enemiesToSpawn].transform.rotation);
+            Instantiate(npcs[enemiesToSpawn], GenerateSpawnPos(), npcs[enemiesToSpawn].transform.rotation);
 
             //Set a random moving speed for each enemy spawned
-            _enemies[enemiesToSpawn].minSpeed = Random.Range(1, 10);
-            _enemies[enemiesToSpawn].maxSpeed = Random.Range(11, 20);
+            npcs[enemiesToSpawn].minSpeed = Random.Range(1, 10);
+            npcs[enemiesToSpawn].maxSpeed = Random.Range(11, 20);
         }
     }
 
@@ -83,7 +163,7 @@ public class GameManager : MonoBehaviour
     public void Respawn()
     {
         transform.position = _playerPosAtSpawn;
-        Instantiate(_gameBallPrefab, _ballPosAtSpawn, transform.rotation);
+        Instantiate(_ball, _ballPosAtSpawn, transform.rotation);
     }
 
     //Called after difficulty selection
@@ -93,7 +173,7 @@ public class GameManager : MonoBehaviour
         gameActive = true;
 
         //Spawn game ball
-        Instantiate(_gameBallPrefab, _ballPosAtSpawn, transform.rotation);
+        Instantiate(_ball, _ballPosAtSpawn, transform.rotation);
 
       
         SpawnEnemyWave(difficulty);
