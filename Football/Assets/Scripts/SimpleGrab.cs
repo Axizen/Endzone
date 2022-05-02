@@ -71,7 +71,7 @@ public class SimpleGrab : MonoBehaviour
     /// Method for dropping item.
     /// </summary>
     /// <param name="item">Item.</param>
-    private void DropItem(PickableItem item)
+    public void DropItem(PickableItem item)
     {
         // Remove reference
         pickedItem = null;

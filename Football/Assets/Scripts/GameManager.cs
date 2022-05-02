@@ -8,9 +8,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour, IWorldContextInfoProvider
 {
     private IAgent[] obstacles;
-    [SerializeField] private SteeringAgent[] npcs;
+    [SerializeField] private SteeringAgent [] npcs;
     private Agent player;
     private AgentsGroup npcGroup;
+    [SerializeField] private SimpleGrab _playerHands;
 
     private const float Y = -0.75f;
     [SerializeField] private PickableItem _ball;
@@ -106,8 +107,10 @@ public class GameManager : MonoBehaviour, IWorldContextInfoProvider
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boundary"))
+        if (other.CompareTag("Player"))
         {
+            _playerHands.DropItem(_ball);
+
             Destroy(_ball.gameObject);
             Respawn();
         }
