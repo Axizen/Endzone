@@ -18,10 +18,8 @@ public class GameManager : MonoBehaviour, IWorldContextInfoProvider
 
     public GameObject _titleScreen;
 
-    Vector3 _playerPosAtSpawn = new Vector3(0, Y, -3);
+    Vector3 _playerPosAtSpawn = new Vector3(15, Y, 10);
     Vector3 _ballPosAtSpawn = new Vector3(20 , Y, 10);
-
-    private int obstacleCount = 3;
 
     private int goals;
     public bool gameActive;
@@ -165,7 +163,7 @@ public class GameManager : MonoBehaviour, IWorldContextInfoProvider
     //Respawn player after score
     public void Respawn()
     {
-        transform.position = _playerPosAtSpawn;
+        player.transform.position = _playerPosAtSpawn;
         Instantiate(_ball, _ballPosAtSpawn, transform.rotation);
     }
 

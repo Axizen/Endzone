@@ -579,7 +579,7 @@ MonoBehaviour:
   - {fileID: 8168403001768600021, guid: 2190224d2466f3149b2ef303f101d8fa, type: 3}
   - {fileID: 8168403001768600021, guid: 2190224d2466f3149b2ef303f101d8fa, type: 3}
   - {fileID: 8168403001768600021, guid: 2190224d2466f3149b2ef303f101d8fa, type: 3}
-  - {fileID: 8168403001768600021, guid: 2190224d2466f3149b2ef303f101d8fa, type: 3}
+  - {fileID: 0}
   _playerHands: {fileID: 1195283453}
   _ball: {fileID: 9065829707966909971, guid: 47045ccb8f3944b9b8a55f6b07f0aefc, type: 3}
   _titleScreen: {fileID: 838867490}
@@ -2428,7 +2428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1665803754693755572, guid: e7d17fe5a52d52b45a8c5f06c1ef1c1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.046818
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1665803754693755572, guid: e7d17fe5a52d52b45a8c5f06c1ef1c1a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2436,7 +2436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1665803754693755572, guid: e7d17fe5a52d52b45a8c5f06c1ef1c1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.951561
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1665803754693755572, guid: e7d17fe5a52d52b45a8c5f06c1ef1c1a, type: 3}
       propertyPath: m_LocalRotation.w
